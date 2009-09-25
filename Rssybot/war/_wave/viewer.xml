@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+<ModulePrefs title="RSS Viewer" height="500">
+    <Require feature="wave-preview" /> 
+  </ModulePrefs>
+<Content type="html">
+<![CDATA[ 
+<div id="content_div" style="height: 0px;"></div>
+	
+	
+	<center>
+	<iframe id="mainFrame" width="97%" height="100%">
+  		<p>Your browser does not support iframes.</p>
+	</iframe>
+	</center>
+	
+	<script type="text/javascript">
+		
+		document.getElementById('mainFrame').src = getURLVariable('rssposturl');
+		
+		
+		
+		
+		
+		//Gets the specified variable out of the URL
+		function getURLVariable(key) {
+			key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+			var regexString = "[\\?&]"+key+"=([^&#]*)";
+			var regex = new RegExp(regexString);
+			var match = regex.exec(decodeURL(window.location.href));
+			if(match == null) {
+				return "";
+			} else {
+				return match[1];
+			}
+		}
+		
+		//Decodes a URL so that all the encoding is converted to standard ANSII characters
+		function decodeURL(url) {
+			var regexString = /(%[^%]{2})/;
+			var temp;
+			var charReplacement;
+			while((match = regexString.exec(url)) != null && match.length > 1 && match[1] != '') {
+				temp = parseInt(match[1].substr(1),16);
+				charReplacement = String.fromCharCode(temp);
+				url = url.replace(match[1], charReplacement);
+			}
+			return url;
+		}
+	</script>   	
+    
+  ]]> 
+  </Content>
+</Module>
